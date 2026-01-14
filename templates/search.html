@@ -1,0 +1,144 @@
+
+{% extends 'base.html'%}
+{% load static %}
+
+    {% block content %}
+	<div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="clearfix"></div>
+		
+		<ol class="breadcrumb">
+			<li><a href="{% url 'index'%}">home</a></li>
+			<li class="active">Search</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-8 col-xs-12">
+				<div class="cat_title">qidiruv '{{ savol }}', boyicha < {{count}} > ta yangi</div>
+				<div class="search_box">
+					<form method="get">
+						<div class="input-group">
+							<input type="text" name="q" value="{{savol}}" placeholder="Поиск">
+							<button class="btn submit"><i class="fa fa-search"></i></button>
+						</div>
+					</form>
+				</div>
+				<div class="news_box">
+
+                    {% for i in news %}
+					<div class="cat_news">
+						<div class="cat_img"><img src="{{i.image.url}}" alt=""></div>
+						<a href="#">{{i.title}}</a>
+						<p>{{i.short_desc}}</p>
+						<span class="date">{{i.get_date}}</span>
+						<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg.name}}</span>
+					</div>
+                    {%endfor%}
+
+
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+
+                            {% if page_obj.has_previous %}
+                            <li>
+                                <a href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="disabled">
+                                <span aria-hidden="true">&laquo;</span>
+                            </li>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                            <li class="active"><a href="#">{{ num }}</a></li>
+                            {% else %}
+                            <li>
+                                <a href="?page={{ num }}&q={{ request.GET.q }}">{{ num }}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                            <li>
+                                <a href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="disabled">
+                                <span aria-hidden="true">&raquo;</span>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+
+
+                </div>
+			</div>
+			<div class="col-md-4 col-xs-12">
+				<div class="head_title">Свежие новости</div>
+				<div id="listnews" class="carousel slide listnews" data-ride="carousel">
+					<div class="news_box">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								<ul class="list_news">
+                                    {% for i in new %}
+
+									<li>
+										<div class="list_img"><img src="{{ i.image.url }}" alt=""></div>
+										<a href="{% url 'view' i.id %}">{{ i.title }}</a>
+										<span class="date">{{ i.get_date }}</span>
+										<span class="news_type"><i class="fa fa-pencil"></i> {{ i.ctg.name }}</span>
+                                        <span class="news_type"><i class="fa fa-eye"></i> {{ i.ctg.views }}</span>
+									</li>
+
+                                    {% endfor %}
+
+								</ul>
+							</div>
+							<div class="item">
+								<ul class="list_news">
+                                    {% for i in new %}
+
+                                    <li>
+                                        <div class="list_img"><img src="{{ i.image.url }}" alt=""></div>
+                                        <a href="{% url 'view' i.id %}">{{ i.title }}</a>
+                                        <span class="date">{{ i.get_date }}</span>
+                                        <span class="news_type"><i class="fa fa-pencil"></i> {{ i.ctg.name }}</span>
+                                        <span class="news_type"><i class="fa fa-eye"></i> {{ i.ctg.views }}</span>
+                                    </li>
+                                    
+                                    {% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="indi_box">
+						<ol class="carousel-indicators">
+							<li data-target="#listnews" data-slide-to="0" class="active"></li>
+							<li data-target="#listnews" data-slide-to="1"></li>
+						</ol>
+					</div>				
+				</div>
+				
+				<div class="news_box rek">
+					<div class="rek_right">
+						
+					</div>
+				</div>
+				<div class="subscribe">
+					<div class="title">Подписывайся на <b>1news.uz</b></div>
+					<form action="">
+						<div class="input-group">
+							<input type="text" name="email" placeholder="Email">
+							<button class="submit">Подписываться</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

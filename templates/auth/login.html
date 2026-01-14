@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'auth/style.css' %}">
+</head>
+<body>
+<section class="forms-section">
+  <h1 class="section-title"></h1>
+  <div class="forms">
+    <div class="form-wrapper {{ login }}">
+      <button type="button" class="switcher switcher-login">
+        Login
+        <span class="underline"></span>
+      </button>
+      <form class="form form-login" action="{% url 'login' %}" method="post">
+          {% csrf_token %}
+        <fieldset>
+          <div class="input-block">
+            <label for="login-phone">Phone</label>
+            <input id="login-phone" name="phone" type="tel" required>
+          </div>
+          <div class="input-block">
+            <label for="login-password">Password</label>
+            <input id="login-password" name="password" type="password" required>
+          </div>
+        </fieldset>
+          <h3 style="color: red; text-align: center;"> {{ error }} </h3>
+        <button type="submit" class="btn-login">Login</button>
+      </form>
+    </div>
+
+<!--  sign up | ********************************************************************************************************   -->
+
+    <div class="form-wrapper {{ regis }}">
+      <button type="button" class="switcher switcher-signup">
+        Sign Up
+        <span class="underline"></span>
+      </button>
+      <form class="form form-signup" action="{% url 'regis' %}" method="post">
+          {% csrf_token %}
+        <fieldset>
+          <div class="input-block">
+            <label for="signup-phone">Phone</label>
+            <input id="signup-phone" name="phone" type="tel" required>
+          </div>
+            <div class="input-block">
+                <label for="signup-fullname">fullname</label>
+                <input id="signup-fullname" name="fullname" type="text" required>
+            </div>
+            <div class="input-block">
+                <label for="signup-age">age</label>
+                <input id="signup-age" name="age" type="number" required>
+            </div>
+            <div class="input-block">
+                <label for="signup-age">what is your gender</label>
+                <select id="signup-gender" name="gender" required>
+                    <option value="1"> ♂️Male</option>
+                    <option value="0"> ♀️Female</option>
+
+                </select>
+            </div>
+          <div class="input-block">
+            <label for="signup-password">Password</label>
+            <input id="signup-password" name="password" type="password" required>
+          </div>
+
+        </fieldset>
+          <h3 style="color: red; text-align: center;
+          {% if regis %}
+          display: block;
+          {% else %}
+          display: none;
+          {% endif %}
+          "> {{ error }} </h3>
+        <button type="submit" class="btn-signup">Continue</button>
+      </form>
+    </div>
+  </div>
+</section>
+<script src="{% static 'auth/script.js' %}"></script>
+</body>
+</html>

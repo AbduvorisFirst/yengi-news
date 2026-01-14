@@ -1,0 +1,115 @@
+{% load static %}
+
+  <div class="iq-sidebar  sidebar-default  ">
+    <div class="iq-sidebar-logo d-flex align-items-end justify-content-between">
+        <a href="../backend/index.html" class="header-logo">
+            <img src="{% static 'dashboard/assets/images/logo.png' %}" class="img-fluid rounded-normal light-logo" alt="logo">
+            <img src="{% static 'dashboard/assets/images/logo-dark.png' %}" class="img-fluid rounded-normal d-none sidebar-light-img" alt="logo">
+            <span> 1 news </span>
+        </a>
+        <div class="side-menu-bt-sidebar-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="text-light wrapper-menu" width="30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </div>
+    </div>
+    <div class="data-scrollbar" data-scroll="1">
+        <nav class="iq-sidebar-menu">
+
+            <ul id="iq-sidebar-toggle" class="side-menu">
+                <li class=" sidebar-layout">
+                    <a href="{% url 'index' %}" class="svg-icon">
+                        <i class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                        </i>
+                        <span class="ml-2">saytga qaytish</span>
+                    </a>
+                </li>
+                <li class="px-3 pt-3 pb-2">
+                    <span class="text-uppercase small font-weight-bold">news_project</span>
+                </li>
+
+                <li class=" sidebar-layout {{ category }}">
+                    <a href="{% url 'dashboard:ctg-list' %}" class="svg-icon">
+                        <i class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                        </i>
+                        <span class="ml-2">Category</span>
+                    </a>
+                </li>
+
+
+
+                <li class=" sidebar-layout {{ news }}" >
+                    <a href="{% url 'dashboard:news-list' %}" class="svg-icon">
+                        <i>
+                            <svg class="svg-icon" id="iq-form-1" width="18" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" style="stroke-dasharray: 74, 94; stroke-dashoffset: 0;"></path>
+                            </svg>
+                        </i>
+                        <span class="ml-2">news</span>
+                    </a>
+                </li>
+
+
+                <li class=" sidebar-layout {{ contact }}">
+                    <a href="{% url 'dashboard:contact-list' %}" class="svg-icon">
+                        <i class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+                            </svg>
+                        </i>
+                        <span class="ml-2">contact</span>
+                    </a>
+                </li>
+
+
+                <li class=" sidebar-layout {{ subs }}">
+                    <a href="{% url 'dashboard:subs-list' %}" class="svg-icon">
+                        <i class="">
+                            <svg class="svg-icon" id="iq-chart-1" width="18" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" style="stroke-dasharray: 96, 116; stroke-dashoffset: 0;"></path>
+                            </svg>
+                        </i>
+                        <span class="ml-2">subscribes</span>
+                    </a>
+                </li>
+
+
+
+                <li class="px-3 pt-3 pb-2">
+                    <span class="text-uppercase small font-weight-bold">User actions</span>
+                </li>
+
+                <li class=" sidebar-layout">
+                    <a href="../backend/icon-heroicon.html" class="svg-icon">
+                        <i class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
+                            </svg>
+                        </i>
+                        <span class="ml-2">profile</span>
+                    </a>
+                </li>
+                <li class=" sidebar-layout">
+                    <a type="button" class="svg-icon" data-toggle="modal" data-target="#logoutModal"
+                    >
+                        <i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </i>
+                        <span class="ml-2">logout</span>
+                    </a>
+                </li>
+
+
+            </ul>
+        </nav>
+        <div class="pt-5 pb-5"></div>
+    </div>
+</div>

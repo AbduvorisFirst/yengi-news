@@ -1,0 +1,538 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+	<div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="l_news">
+			<div class="title">Актуальные</div>
+			<div class="l_news_box">
+				<div id="littlenews" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner" role="listbox">
+                        {% for i in aktual %}
+						<div class="item active">
+							<a href="{% url 'view' i.id %}">{{ i.title }}</a>
+						</div>
+                        {% endfor %}
+
+					</div>
+					
+					<a class="left carousel-control" href="#littlenews" role="button" data-slide="prev">
+						<i class="fa fa-angle-left"></i>
+					</a>
+					<a class="right carousel-control" href="#littlenews" role="button" data-slide="next">
+						<i class="fa fa-angle-right"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="fav_news">
+			<div class="big_fav">
+				<div id="bigfav" class="carousel slide" data-ride="carousel">
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<img src="{{ news.0.image.url }}" alt="...">
+								<a href="{% url 'view' pk=news.0.id %}">
+									<div class="carousel-caption">
+										<div class="caption_pos">
+											<div class="type_news">{{ news.0.ctg.name }}</div>
+											<div class="title">{{ news.0.title }}</div>
+											<span class="date">{{ news.0.get_date }}</span>
+											<span class="com_count"><span class="fa fa-eye"></span> {{ news.0.views }} </span>
+										</div>
+									</div>
+								</a>
+						</div>
+						
+					</div>
+
+				</div>
+			</div>
+			<div class="list_fav">
+				<div class="title"><b>Актульные</b> новости</div>
+				<ul>
+
+
+                    {% for i in aktual %}
+					<li>
+						<a href="{% url 'view' i.id %}">
+							<div class="list_fimg">
+								<img src="{{ i.image.url }}" alt="">
+							</div>
+							<span class="list_type">{{ i.ctg.name }}</span>
+							<span class="list_title">{{ i.title }}</span>
+							<span class="date">{{ i.get_date }}</span>
+						</a>
+					</li>
+                    {% endfor %}
+
+
+
+				</ul>
+				<a href="#" class="more">больше актуальные новости</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="head_title">популярные новости</div>
+		<div class="popular">
+			<div class="row">
+				{% for i in populyar %}
+                {% if forloop.counter < 9%}
+				<div class="col-md-3 col-xs-12">
+					<div class="p_img"><img src="{{ i.image.url }}" alt=""></div>
+					<a href="{% url 'view' i.id %}">{{ i.title }}r</a>
+					<span class="date">{{ i.get_date }}</span>
+					<span class="p_type"><i class="fa fa-pencil"></i> {{ i.ctg.name }}</span>
+				</div>
+                {% endif %}
+                {% endfor %}
+			</div>
+		</div>
+
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-xs-12">
+				<div class="head_title">ПРОИСШЕСТВИЯ</div>
+
+				<div class="news_box">
+					<div class="row">
+                        {% for i in kegan %}
+                        {% if forloop.counter < 4 %}
+						<div class="col-md-6 col-xs-12">
+							<div class="big_news">
+								<div class="big_n_img"><img src="{{ i.image.url }}" alt=""></div>
+								<a href="{% url 'view' i.id %}">{{i.title}}</a>
+								<span class="date">{{ i.get_date }}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> Общество</span>
+								<div class="desc"> {{ i.ctg.name }}</div>
+							</div>
+						</div>
+                        {% endif %}
+						{% endfor %}
+					</div>
+				</div>
+
+				<a href="#" class="big_more">больше новости</a>
+				<div class="head_title">ПОЛИТИКА</div>
+				<div class="news_box">
+					<div class="row">
+                        {% for i in president %}
+						<div class="col-md-6 col-xs-12">
+							<div class="big_news">
+								<div class="big_n_img"><img src="{{ i.image.url}}" alt=""></div>
+								<a href="{% url 'view' i.id %}">{{i.title}}</a>
+								<span class="date">{{ i.get_date }}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> Общество</span>
+								<div class="desc">{{ i.ctg.name }}</div>
+							</div>
+						</div>
+                        {% endfor %}
+
+						
+					</div>
+				</div>
+				<div class="news_box">
+					<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<ul class="list_news">
+                                {%for i in kolumst %}
+								<li>
+									<div class="list_img"><img src="{{ i.image.url }}" alt=""></div>
+									<a href="{% url 'view' i.id %}">{{i.title}}</a>
+									<span class="date">{{ i.get_date }}</span>
+									<span class="news_type"><i class="fa fa-pencil"></i>{{i.ctg.name}}</span>
+								</li>
+                                {% endfor %}
+
+
+							</ul>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<ul class="list_news">
+                                {% for i in kolumst%}
+								<li>
+									<div class="list_img"><img src="{{ i.image.url}}" alt=""></div>
+									<a href="{% url 'view' i.id %}">{{i.title}}</a>
+									<span class="date">{{ i.get_date}}</span>
+									<span class="news_type"><i class="fa fa-pencil"></i> {{ i.ctg.name }}</span>
+								</li>
+                                {% endfor %}
+
+							</ul>
+						</div>
+					</div>
+				</div>
+				<a href="#" class="big_more">больше новости</a>
+			</div>
+			<div class="col-md-4 col-xs-12">
+				<div class="head_title">Свежие новости</div>
+				<div id="listnews" class="carousel slide listnews" data-ride="carousel">
+					<div class="news_box">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								<ul class="list_news">
+
+                                    {% for i in fresh%}
+                                    {% if forloop.counter < 5%}
+									<li>
+										<div class="list_img"><img src="{{ i.image.url }}" alt=""></div>
+										<a href="{% url 'view' i.id %}">{{ i.title }}</a>
+										<span class="date">{{ i.get_date }}</span>
+										<span class="news_type"><i class="fa fa-pencil"></i>{{ i.ctg.name }}</span>
+									</li>
+                                    {% endif %}
+                                    {% endfor %}
+
+								</ul>
+							</div>
+							<div class="item">
+								<ul class="list_news">
+                                    {% for i in fresh%}
+                                    {% if forloop.counter < 5%}
+                                    <li>
+                                        <div class="list_img"><img src="{{ i.image.url }}" alt=""></div>
+                                        <a href="{% url 'view' i.id %}">{{ i.title }}</a>
+                                        <span class="date">{{ i.get_date }}</span>
+                                        <span class="news_type"><i class="fa fa-pencil"></i>{{ i.ctg.name }}</span>
+                                    </li>
+                                    {% endif %}
+                                    {% endfor %}
+
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="indi_box">
+						<ol class="carousel-indicators">
+							<li data-target="#listnews" data-slide-to="0" class="active"></li>
+							<li data-target="#listnews" data-slide-to="1"></li>
+						</ol>
+					</div>				
+				</div>
+				
+				<div class="head_title colum">Колумнисты</div>
+				
+					<div class="news_box colums">
+
+								<ul class="list_news">
+                                    {% for i in kolumst%}
+                                    <li>
+                                        <div class="list_img"><img src="{{ i.image.url}}" alt=""></div>
+                                        <a href="{% url 'view' i.id %}">{{i.title}}</a>
+                                        <span class="date">{{ i.get_date}}</span>
+                                        <span class="news_type"><i class="fa fa-pencil"></i> {{ i.ctg.name }}</span>
+                                    </li>
+                                    {% endfor %}
+								</ul>
+
+					</div>
+
+				
+				<div class="news_box rek">
+					<div class="rek_right">
+						
+					</div>
+				</div>
+				<div class="subscribe">
+					<div class="title">Подписывайся на <b>1news.uz</b></div>
+					<form action="{% url 'obuna'%}?path={{ request.path }}" method="post">
+                        {% csrf_token %}
+						<div class="input-group">
+							<input type="email" name="email" placeholder="Email" required>
+							<button class="submit">Подписываться</button>
+						</div>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="culture">
+		<div class="container">
+			<div class="title">КУЛЬТУРА</div> 
+			<div id="culture" class="carousel slide" data-ride="carousel">
+				<ol class="carousel-indicators">
+					<li data-target="#culture" data-slide-to="0" class="active"></li>
+					<li data-target="#culture" data-slide-to="1"></li>
+				</ol>
+				<div class="carousel-inner" role="listbox">
+					<div class="item active">
+                        {% for i in news %}
+                        {% if forloop.counter < 6 %}
+						<div class="big_cult">
+							<img src="{{ i.image.url }}" alt="">
+							<a href="{% url 'view' i.id %}">
+								<div class="caption">{{ i.title }}</div>
+							</a>
+						</div>
+                        {% endif %}
+                        {% endfor %}
+
+					</div>
+				</div>
+			</div>
+			<a href="#" class="more">больше новости</a>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-xs-12">
+				<div class="head_title">ОБЩЕСТВО</div>
+				<div class="news_box">
+					<div class="row">
+
+                        {% for i in news%}
+                        {% if forloop.counter < 4 %}
+						<div class="col-md-6 col-xs-12">
+							<div class="big_news">
+								<div class="big_n_img"><img src="{{ i.image.url }}" alt=""></div>
+								<a href="{% url 'view' i.id %}">{{ i.title }}</a>
+								<span class="date">{{ i.get_date}}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> Общество</span>
+								<div class="desc">{{ i.ctg.name }}</div>
+							</div>
+						</div>
+                        {% endif %}
+                        {% endfor%}
+
+						
+					</div>
+				</div>
+				<div class="news_box">
+					<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<ul class="list_news">
+                                {% for i in news%}
+                                {%if i.forloop.counter < 5 %}
+								<li>
+									<div class="list_img"><img src="{{i.image.url}}" alt=""></div>
+									<a href="{% url 'view' i.id %}">{{i.title}}</a>
+									<span class="date">{{i.get_date}}</span>
+									<span class="news_type"><i class="fa fa-pencil"></i> {{i.ctg.name}}</span>
+								</li>
+                                {%endif%}
+                                {%endfor%}
+
+							</ul>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<ul class="list_news">
+                                {% for i in news%}
+                                {% if i.forloop.counter < 5 %}
+								<li>
+									<div class="list_img"><img src="{{ i.image.url }}" alt=""></div>
+									<a href="{% url 'view' i.id %}">{{ i.title}}</a>
+									<span class="date">{{ i.get_date }}</span>
+									<span class="news_type"><i class="fa fa-pencil"></i> {{ i.ctg.name }}</span>
+								</li>
+                                {% endif %}
+                                {% endfor %}
+
+							</ul>
+						</div>
+					</div>
+				</div>
+				<a href="#" class="big_more">больше новости</a>
+				<div class="head_title">В мире</div>
+				<div class="news_box">
+					<div class="row">
+                        {% for i in aktual %}
+                        {% if i.forloop < 5 %}
+						<div class="col-md-6 col-xs-12">
+
+							<div class="big_news">
+								<div class="big_n_img"><img src="{{ i.image.url }}" alt=""></div>
+								<a href="{% url 'view' i.id %}">{{ i.title }}</a>
+								<span class="date">{{ i.get_date }}</span>
+								<span class="news_type"><i class="fa fa-pencil"></i> Общество</span>
+								<div class="desc">{{ i.ctg.name }}</div>
+							</div>
+						</div>
+                        {% endif %}
+                        {% endfor %}
+
+						
+					</div>
+				</div>
+				<div class="news_box">
+					<div class="row">
+                        {% for i in aktual%}
+                        {% if i.forloop < 5 %}
+                        <div class="col-md-6 col-xs-12">
+
+                            <div class="big_news">
+                                <div class="big_n_img"><img src="{{ i.image.url }}" alt=""></div>
+                                <a href="{% url 'view' i.id %}">{{ i.title }}</a>
+                                <span class="date">{{ i.get_date }}</span>
+                                <span class="news_type"><i class="fa fa-pencil"></i> Общество</span>
+                                <div class="desc">{{ i.ctg.name }}</div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+					</div>
+				</div>
+				<a href="#" class="big_more">больше новости</a>
+			</div>
+			<div class="col-md-4 col-xs-12">
+				<div class="head_title">ТЕХНОЛОГИИ</div>
+				<div id="technews" class="carousel slide listnews technonews" data-ride="carousel">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+                                {% for i in news%}
+
+								<div class="full_img">
+									<img src="{{i.image.url}}"  alt="">
+								</div>
+
+                                {%endfor%}
+
+						</div>
+						<div class="item">
+                            {% for i in news%}
+
+                            <div class="full_img">
+                                <img src="{{i.image.url}}"  alt="">
+                            </div>
+
+                            {%endfor%}
+						</div>
+					</div>
+					<div class="indi_box">
+						<ol class="carousel-indicators">
+							<li data-target="#technews" data-slide-to="0" class="active"></li>
+							<li data-target="#technews" data-slide-to="1"></li>
+						</ol>
+					</div>				
+				</div>
+				<div class="head_title">ЭКОНОМИКА</div>
+				<div id="econews" class="carousel slide listnews" data-ride="carousel">
+					<div class="news_box">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								<ul class="list_news">
+                                    {% for i in news %}
+
+									<li>
+										<div class="list_img"><img src="{{i.image.url}}"  alt=""></div>
+										<a href="{% url 'view' i.id %}">{{i.title}}</a>
+										<span class="date">{{i.get_date}}</span>
+										<span class="news_type"><i class="fa fa-eye"></i> {{i.views}}</span>
+									</li>
+
+                                    {%endfor%}
+
+									
+								</ul>
+							</div>
+							<div class="item">
+								<ul class="list_news">
+                                    {% for i in news %}
+
+                                    <li>
+                                        <div class="list_img"><img src="{{i.image.url}}"  alt=""></div>
+                                        <a href="{% url 'view' i.id %}">{{i.title}}</a>
+                                        <span class="date">{{i.get_date}}</span>
+                                        <span class="news_type"><i class="fa fa-eye "></i> {{i.views}}</span>
+                                    </li>
+
+                                    {%endfor%}
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="indi_box">
+						<ol class="carousel-indicators">
+							<li data-target="#econews" data-slide-to="0" class="active"></li>
+							<li data-target="#econews" data-slide-to="1"></li>
+						</ol>
+					</div>				
+				</div>
+				<div class="head_title photo_news">НОВОСТИ В ФОТО</div>
+				<div id="technews" class="carousel slide listnews" data-ride="carousel">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+                                {% for i in news%}
+								<div class="full_img">
+									<img src="{{ i.image.url }}" alt="">
+								</div>
+								<div class="news_box">
+										<a href="{% url 'view' i.id %}">{{ i.title}}</a>
+								</div>
+                                {%endfor%}
+						</div>
+						<div class="item">
+                            {% for i in news %}
+                            <div class="full_img">
+                                <img src="{{ i.image.url }}" alt="">
+                            </div>
+                            <div class="news_box">
+                                <a href="{% url 'view' i.id %}">{{ i.title}}</a>
+                            </div>
+                            {%endfor%}
+						</div>
+					</div>
+					<div class="indi_box">
+						<ol class="carousel-indicators">
+							<li data-target="#technews" data-slide-to="0" class="active"></li>
+							<li data-target="#technews" data-slide-to="1"></li>
+						</ol>
+					</div>				
+				</div>
+				<div class="head_title sport">СПОРТ</div>
+				<div id="econews" class="carousel slide listnews" data-ride="carousel">
+					<div class="news_box">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								<ul class="list_news">
+                                    {% for i in sport %}
+
+									<li>
+										<div class="list_img"><img src="{{i.image.url}}" alt=""></div>
+										<a href="{% url 'view' i.id %}">{{ i.title }}</a>
+										<span class="date">{{ i.get_date }}</span>
+										<span class="news_type"><i class="fa fa-pencil"></i> {{ i.ctg.name }}</span>
+									</li>
+
+                                    {% endfor %}
+
+								</ul>
+							</div>
+							<div class="item">
+								<ul class="list_news">
+                                    {% for i in sport %}
+
+                                    <li>
+                                        <div class="list_img"><img src="{{i.image.url}}" alt=""></div>
+                                        <a href="{% url 'view' i.id %}">{{ i.title }}</a>
+                                        <span class="date">{{ i.get_date }}</span>
+                                        <span class="news_type"><i class="fa fa-pencil"></i> {{ i.ctg.name }}</span>
+                                    </li>
+
+                                    {% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="indi_box">
+						<ol class="carousel-indicators">
+							<li data-target="#econews" data-slide-to="0" class="active"></li>
+							<li data-target="#econews" data-slide-to="1"></li>
+						</ol>
+					</div>				
+				</div>
+				<div class="head_title weather">Погода</div>
+				<div class="news_box"></div>
+			</div>
+		</div>
+		<div class="foot_rek">
+			<img src="{% static 'img/foootrek.jpg'%}" alt="">
+		</div>
+	</div>
+{% endblock %}
+

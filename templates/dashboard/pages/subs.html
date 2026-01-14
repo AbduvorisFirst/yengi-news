@@ -1,0 +1,184 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Subscribe</th>
+        <th scope="col">is_active</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for ii in subs %}
+    <tr>
+        <th scope="row">{{ ii.email }}</th>
+        <td>
+            {% if ii.is_active %}
+            <a
+                    type="button" class="text text-success rounded-pill mt-2">
+                <i
+                        class="fas fa-check">
+
+                </i>
+            </a>
+            {% else %}
+            <a
+                    type="button" class="text text-danger rounded-pill mt-2">
+                <i
+                        class="fas fa-close">
+
+                </i>
+            </a>
+            {% endif %}
+        </td>
+        <td>
+
+            <a data-toggle='modal' data-target="#EditSubsModal_{{ ii.id }}" href="{% url 'dashboard:subs-edit' ii.id %}" class="btn btn-outline-primary rounded-pill">
+                <i class="fas fa-pencil">
+
+                </i>
+            </a>
+            <a data-toggle='modal' data-target="#DeleteModal_{{ ii.id }}" href="{% url 'dashboard:subs-delete' ii.id %}" class="btn btn-outline-danger rounded-pill ml-2" >
+                <i class="fas fa-trash ">
+                </i>
+            </a>
+        </td>
+
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<button class="btn btn-success btn-outline" data-toggle="modal" data-target="#AddSubsModal"> add</button>
+
+
+</div>
+
+<!-- ###################################################### delete ########################################################################-->
+
+{% for ii in subs %}
+<div class="modal fade bd-example-modal-sm" id="DeleteModal_{{ ii.id }}" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">delete confirmation: {{ ii.email }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>rostan ham <mark class="bg-danger">{{ ii.email }}</mark> ni ochirmoqchimisiz </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">yo'q</button>
+                <a href="{% url 'dashboard:contact-delete' ii.id %}" type="button" class="btn btn-primary">ha</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!--###################################################### edit #######################################################################-->
+
+{% for ii in subs %}
+<div class="modal fade" id="EditSubsModal_{{ ii.id }}" tabindex="-1" role="dialog" aria-labelledby="EditSubsModalTitle_{{ ii.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form class="modal-content" method="post" action="{% url 'dashboard:subs-edit' ii.id %}">
+            {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditSubsModalTitle_{{ ii.id }}">new edit category {{ ii.name }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+
+
+                <div class="form-group">
+                    <label for="">Name:</label>
+                    <input type="text" class="form-control" name="email">
+                </div>
+
+
+                <div class="checkbox mb-3">
+                    <label><input type="checkbox" name="is_active">is_active</label>
+                </div>
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+{% endfor %}
+
+
+
+
+
+
+<!-- ############################################ |add|  ############################################################################################################-->
+
+
+
+<div class="modal fade" id="AddSubsModal" tabindex="-1" role="dialog" aria-labelledby="AddSubsModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form class="modal-content" method="post" action="{% url 'dashboard:add_subs' %}">
+            {% csrf_token %}
+            <div class="modal-header">
+                <h5 class="modal-title" id="AddSubsModalTitle">new contact</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="form-group">
+                    <label for="email">Name:</label>
+                    <input type="text" class="form-control" name="email">
+                </div>
+
+
+
+                <div class="checkbox mb-3">
+                    <label><input type="checkbox" name="is_active">is_active</label>
+                </div>
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

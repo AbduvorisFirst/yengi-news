@@ -1,0 +1,221 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+
+
+
+	<div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="clearfix"></div>
+		
+		<ol class="breadcrumb">
+			<li><a href="{% url 'index' %}">bosh sahifa</a></li>
+			<li><a href="{% url 'ctg' slug=new.ctg.slug %}">{{new.ctg.name}}</a></li>
+			<li class="active">{{ new.title }}</li>
+		</ol>
+		<div class="row">
+
+			<div class="col-md-8 col-xs-12">
+				<div class="view_img"><img src="{{new.image.url}}" alt=""></div>
+				<div class="news_box view">
+					<div class="view_title">{{ new.title }}</div>
+					<span class="date">{{new.get_date}}</span>
+					<span class="news_type"><i class="fa fa-pencil"></i> {{new.ctg.name}}</span>
+                    <span class="news_type"><i class="fa fa-eye"></i> {{new.views}}</span>
+					<div class="view_desc">
+
+
+                        {% for ii in get_short_desc %}
+					    <p><b>{{ i }}</b></p>
+                        {% endfor %}
+                        <br>
+
+
+
+                        {% for i in new.get_desc %}
+					    <p>{{ i }} </p>
+                        {% endfor %}
+				</div>
+				<ul class="tag">
+                    {% for i in new.get_tags %}
+					<li><a href="{% url 'search' %}?q">#{{ i }}</a></li>
+                    {% endfor %}
+
+				</ul>
+				<div class="nav_news">
+					<a href="#" class="prev_news text-right">
+						<i class="fa fa-angle-left"></i>
+						Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+					</a>
+					<a href="#" class="next_news">
+						Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+						<i class="fa fa-angle-right"></i>
+					</a>
+					<div class="clearfix"></div>
+				</div>
+
+
+
+
+				<div class="comment">
+					<div class="title">Комменты</div>
+					<ul>
+
+                        {% for ii in comments %}
+						<li>
+
+							<div class="com_info">
+                                <hr>
+								<div class="author">{{ ii.user }}</div>
+								<p><b>{{ ii.comment }}</b></p>
+								<div class="date"> {{ ii.date }}</div>
+								<hr>
+
+                                <div class="feedback" id="reply_{{ ii.id }}" style="display: none;">
+
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <input type="text"
+                                               name="user"
+                                               placeholder="sizning ismingiz"
+                                        style="max-width: 260px">
+
+                                        <input type="number" value="{{ ii.id }}" name="parent_id" style="display: None">
+                                        <textarea style='max-width: 260px' name="comment" id="" cols="5" rows="5" placeholder="message"></textarea>
+                                        <button class="btn submit" type="submit" >yuborish</button>
+                                    </form>
+
+                                    <hr>
+
+
+                                </div>
+                                        <button class="btn btn-info" id='show_btn_{{ ii.id }}' onclick="show_answer( 'reply_{{ ii.id }}', 'hide_btn_{{ ii.id }}', 'show_btn_{{ ii.id }}' )"> javob yozish</button>
+                                        <button class="btn btn-info" id='hide_btn_{{ ii.id }}' onclick="hide_answer( 'reply_{{ ii.id }}', 'hide_btn_{{ ii.id }}', 'show_btn_{{ ii.id }}' )" style="display: none;"> yopish </button>
+
+                                <br>
+
+
+							</div>
+
+                            {% if ii.atvet.all %}
+							<ul class="sub">
+
+                                {% for sub in ii.atvet.all %}
+								<li>
+
+									<div class="com_info">
+										<div class="author">{{ sub.user }}</div>
+										<p>{{ sub.comment }}</p>
+										<div class="date">{{ sub.date }}</div>
+										<hr>
+									</div>
+
+								</li>
+                                {% endfor %}
+							</ul>
+                            {% endif %}
+
+						</li>
+                        {% endfor %}
+
+					</ul>
+
+                    <div class="feedback">
+
+                        <div class="title">izoh qoshish</div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="text" name="user" placeholder="sizning ismingiz">
+                            <textarea name="comment" id="" cols="30" rows="10" placeholder="message"></textarea>
+                            <button class="btn submit" type="submit" >yuborish</button>
+                        </form>
+                    </div>
+				</div>
+
+
+
+
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12">
+				<div class="head_title">Свежие новости</div>
+				<div id="listnews" class="carousel slide listnews" data-ride="carousel">
+					<div class="news_box">
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								<ul class="list_news">
+                                    {% for i in new_1 %}
+                                    {% if forloop.counter < 5 %}
+									<li>
+										<div class="list_img"><img src="{{ i.image.url }}" alt=""></div>
+										<a href="{% url 'view' i.id %}">{{i.title}}</a>
+										<span class="date">{{i.get_date}}</span>
+										<span class="news_type"><i class="fa fa-pencil"></i>{{i.ctg.name}}</span>
+									</li>
+                                    {% endif %}
+                                    {% endfor %}
+
+								</ul>
+							</div>
+							<div class="item">
+								<ul class="list_news">
+                                    {% for i in new_1 %}
+                                    {% if forloop.counter < 5 %}
+                                    <li>
+                                        <div class="list_img"><img src="{{ i.image.url }}" alt=""></div>
+                                        <a href="{% url 'view' i.id %}">{{i.title}}</a>
+                                        <span class="date">{{i.get_date}}</span>
+                                        <span class="news_type"><i class="fa fa-pencil"></i>{{i.ctg.name}}</span>
+                                    </li>
+                                    {% endif %}
+                                    {% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="indi_box">
+						<ol class="carousel-indicators">
+							<li data-target="#listnews" data-slide-to="0" class="active"></li>
+							<li data-target="#listnews" data-slide-to="1"></li>
+						</ol>
+					</div>				
+				</div>
+				
+				<div class="news_box rek">
+					<div class="rek_right">
+						
+					</div>
+				</div>
+				<div class="subscribe">
+					<div class="title">Подписывайся на <b>1news.uz</b></div>
+					<form action="">
+						<div class="input-group">
+							<input type="text" name="email" placeholder="Email">
+							<button class="submit">Подписываться</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block js %}
+
+<script>
+    function show_answer(id, hide_btn_id, show_btn_id){
+        console.log(id)
+        document.getElementById(id).style.display = 'block'
+        document.getElementById(hide_btn_id).style.display = 'block'
+        document.getElementById(show_btn_id).style.display = 'none'
+    }
+
+    function hide_answer(id, hide_btn_id, show_btn_id){
+        console.log(id)
+        document.getElementById(id).style.display = 'none'
+        document.getElementById(hide_btn_id).style.display = 'none'
+        document.getElementById(show_btn_id).style.display = 'block'
+    }
+</script>
+{% endblock %}

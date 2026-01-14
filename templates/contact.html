@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block content %}
+	<div class="container wrapper">
+		<div class="longrek"></div>
+		<div class="clearfix"></div>
+		
+		<ol class="breadcrumb">
+			<li><a href="{% url 'index' %}">Главная</a></li>
+			<li class="active">Контакты</li>
+		</ol>
+		<div class="row">
+			<div class="col-md-5 col-xs-12">
+				<div class="cat_title">Контакты</div>
+				<div class="con_info">Интернет-издание 1news.uz освещает общественно-политическую, социально-экономическую, культурную, спортивную жизнь Узбекистана и события происходящие в мире.</div>
+				<ul class="contact">
+					<li><i class="fa fa-map-marker"></i> г. Ташкент, улица Эркинлик, дом 108</li>
+					<li><i class="fa fa-print"></i> 0(371) 215-79-79</li>
+					<li><i class="fa fa-mobile"></i> 99897 738-14-14</li>
+					<li><i class="fa fa-envelope"></i> info@1news.uz</li>
+				</ul>
+				<div class="feedback">
+					<div class="title">Обратная связь</div>
+                    {% if success %}
+                          <h3 style="color: green ;">👍{{success}}</h3>
+                    {% endif %}
+                    {% if error %}
+                          <h3 style="color: red ;">❌{{error}}</h3>
+                    {% endif %}
+					<form method="post">
+                        {% csrf_token %}
+						<input type="text" name="name" placeholder="Ваше имя">
+						<input type="tel" name="phone" placeholder="ваше телефон">
+						<textarea name="message" id="" cols="30" rows="10" placeholder="Сообщение"></textarea>
+						<button class="btn submit" type="submit">Отправить</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-md-7 col-xs-12">
+				<div class="con_img">
+					<img src="{% static 'img/contact.jpg'%}" alt="">
+				</div>
+				<div class="map"></div>
+			</div>
+		</div>
+		<div class="foot_rek">
+			<img src="img/foootrek.jpg" alt="">
+		</div>
+	</div>
+{% endblock %}
